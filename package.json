@@ -1,0 +1,22 @@
+{
+  "name": "pruebasservidores",
+  "version": "1.0.0",
+  "description": "Inicio de crecion de servidores",
+  "main": "servidor_basico.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://jorniero92@github.com/jorniero92/nodeJs.git"
+  },
+  "author": "Jorge Nieto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorniero92/nodeJs/issues"
+  },
+  "homepage": "https://github.com/jorniero92/nodeJs#readme",
+  "dependencies": {
+    "chance": "^1.0.1"
+  }
+}

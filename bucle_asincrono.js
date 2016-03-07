@@ -6,12 +6,11 @@ var escribeTras2Segundos = function(texto, callback) {
    setTimeout(function() {
        console.log(texto);
        callback();
-   }, 2000);
+   }, 500);
 };
 
-function serie(i){
-
-	escribeTras2Segundos('texto' + i, function(){
+function serie(i, fn){
+	fn('texto' + i, function(){
 		i--;
 		
 	    if (i == 0) {
@@ -19,8 +18,9 @@ function serie(i){
 	    	return;
 		}
 
-		serie(i);
+		serie(i, fn);
 	});
 	
 } 
+//solo le doy la funcion de escribeTras2Segundos
 serie(5, escribeTras2Segundos);

@@ -2,7 +2,7 @@
   "name": "pruebasservidores",
   "version": "1.0.0",
   "description": "Inicio de crecion de servidores",
-  "main": "servidor_basico.js",
+  "main": "ejemplo_this.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

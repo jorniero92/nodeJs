@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+  </head>
+  <body>
+  	<!-- users no lo recibe como array, hay que darle un objeto con propiedades-->
+	<% users.forEach(function(user){ %>
+		<p><%= user.name %> <%= user.age %></p>
+	<% }) %>
+  </body>
+</html>

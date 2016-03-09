@@ -4,7 +4,9 @@
     
   </head>
   <body>
-	Nombre <input type="text" value="<%= name %>">	
-	Edad <input type="text" value="<%= age %>">	
+  	<!-- users no lo recibe como array, hay que darle un objeto con propiedades-->
+	<% users.forEach(function(user){ %>
+		<p><%= user.name %> <%= user.age %></p>
+	<% }) %>
   </body>
 </html>

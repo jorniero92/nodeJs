@@ -1,29 +1,51 @@
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var path = require('path'); //libreria para unir rutas
+var favicon = require('serve-favicon'); // icono de la web 
+var logger = require('morgan'); //hacer log
+var cookieParser = require('cookie-parser'); 
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+//de router añadimos admin
+var admin = require('./routes/admin');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.use(function(req, res, next){
+  // o llamar a next 
+  // o responde
+  //console.log(req.query);
+  var algo = req.query.algo || '';
+  req.algo = algo; // asi lo dejo preparado para que lo use otro
+  //next();
+  //res.send('soy el primero');
+  next();
+});
 
+// view engine setup
+//usa variables de express
+app.set('views', path.join(__dirname, 'views')); // en views ira a buscar las rutas
+// __dirname --> la ruta actual con /views
+app.set('view engine', 'ejs'); // las plantillas con ejs
+
+
+//app.use(); -->
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(logger('dev'));
-app.use(bodyParser.json());
+ //al hacer un POST, coge el body y lo convierte en Json y lo pone en el body
+app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+// usamos la ruta
+app.use('/admin', admin);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

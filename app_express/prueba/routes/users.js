@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/form', function(req, res, next) {
+  res.render('user_form', {name: 'smith', age: '30'});
+});
+
+
 module.exports = router;

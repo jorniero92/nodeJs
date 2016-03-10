@@ -12,7 +12,7 @@ var userSchema = mongoose.Schema({
 userSchema.statics.list = function(cb){
 	var query = User.find({});
 	//ejecutarlo
-	query.short('name');
+	query.sort('name');
 
 	query.exec(function(err, rows){
 		if(err){

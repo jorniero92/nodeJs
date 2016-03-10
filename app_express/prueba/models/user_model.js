@@ -9,10 +9,11 @@ var userSchema = mongoose.Schema({
 	age: Number
 });
 
-userSchema.statics.list = function(cb){
+userSchema.statics.list = function(sort, cb){
+
 	var query = User.find({});
 	//ejecutarlo
-	query.sort('name');
+	query.sort(sort);
 
 	query.exec(function(err, rows){
 		if(err){

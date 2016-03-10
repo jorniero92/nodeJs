@@ -23,6 +23,8 @@ router.get('/', function(req, res) {
  
 });
 
+
+//Añadir un user
 router.post('/', function(req,res){
 	var user = User(req.body); //el req.body es lo de la peticion post
 	//guardamos en la BD
@@ -36,6 +38,62 @@ router.post('/', function(req,res){
 		return;
 	});
 });
+
+//actualizar un user
+router.put('/:id', function(req, res){ 
+	var options = {};
+	// var options = {multi: true}; //para actalizar varios usar multi
+
+	User.update({_id: req.params.id}, {$set: req.body}, {multi: true}, function(err, data){
+		if(err){
+			res.json({result: false, err: err});
+			return;	
+		}
+		res.json({result: true, row: data});
+	});
+
+
+/*
+	//primero es cargarlo
+	User.find({_id: req.params.id}, function(err, row){
+		if(err){
+			res.json({result: false, err: err});
+			return;	
+		}
+		if(!row){
+			res.json({result: false, err: 'Not Found'});
+			return;	
+		}
+		//actualizarlo
+		Object.assign(row, req.body);
+		
+		//Guardarlo y ver si hay errores
+		row.save(function(err, rowSaved){
+			if(err){
+				res.json({result: false, err: err});
+				return;	
+			}
+			res.json({result: true, err: rowSaved});
+		})
+	});
+*/
+
+}); //fin del put
+
+//Eliminar un user
+router.delete('/:id', function(req, res){ 
+	var options = {};
+	// var options = {multi: true}; //para actalizar varios usar multi
+
+	User.remove({_id: req.params.id}, function(err, data){
+		if(err){
+			res.json({result: false, err: err});
+			return;	
+		}
+		res.json({result: true, row: data});
+	});
+}); //fin del delete
+
 
 //exporto el modelo
 module.exports = router; //exportas el modelo, No el objeto

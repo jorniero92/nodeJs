@@ -4,13 +4,21 @@ var favicon = require('serve-favicon'); // icono de la web
 var logger = require('morgan'); //hacer log
 var cookieParser = require('cookie-parser'); 
 var bodyParser = require('body-parser');
+//Modelos
+require('./models/user_model')
 
+//Rutas de web
 var routes = require('./routes/index');
 var users = require('./routes/users');
-//de router añadimos admin
-var admin = require('./routes/admin');
+var admin = require('./routes/admin'); //de router añadimos admin
 
+//Rutas de API V1
+var apiUsers = require('./routes/api/v1/users');
+
+
+var db = require('./lib/connectMongo.js')
 var app = express();
+var mongoose = require('./lib/connectMongoose.js');
 
 app.use(function(req, res, next){
   // o llamar a next 
@@ -41,10 +49,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Rutas de web
 app.use('/', routes);
 app.use('/users', users);
-// usamos la ruta
-app.use('/admin', admin);
+app.use('/admin', admin);// usamos la ruta
+
+//Rutas de API V1
+app.use('/api/v1/user', apiUsers);
 
 
 // catch 404 and forward to error handler

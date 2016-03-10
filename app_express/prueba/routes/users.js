@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var users = require('../models/user_model');
+var user = require('../models/user_model');
+var mongoose = require('mongoose')
 
-console.log('users', users);
+console.log('users', user);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -10,11 +11,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/form', function(req, res, next) {
-	//el array lo meto en users y la vista no lo ve como array
-	//res.render('user_form', users);
 
-	//{users: users} --> es un array con nombre users.
-	res.render('user_form', {users: users});
+	var User = mongoose.model('User');
+	User.list(function(err, rows){
+		res.render('use_form', {users: rows});
+	});
 });
 
 

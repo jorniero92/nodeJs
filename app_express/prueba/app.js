@@ -12,6 +12,7 @@ var admin = require('./routes/admin');
 
 var db = require('./lib/connectMongo.js')
 var app = express();
+var mongoose = require('./lib/connectMongoose.js');
 
 app.use(function(req, res, next){
   // o llamar a next 

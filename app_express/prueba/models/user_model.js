@@ -1,30 +1,32 @@
 "use strict";
-//conectar con driver de mongodb
-//var conn = require('../lib/connectMongo');
 
-/*
-//datos
-var users = [
-	{name: 'Smith', age: '30'},
-	{name: 'Jhon', age: '20'},
-	{name: 'Pepe', age: '25'}
-];
-*/
-
-//conectar con driver de mongose
-var conn = require('../lib/connectMongoose');
+//var conn = require('../lib/connectMongo')
+var conn = require('../lib/connectMongoose.js');
 var mongoose = require('mongoose');
 
-//creo el esquema
 var userSchema = mongoose.Schema({
-	//propiedades del objeto
 	name: String,
 	age: Number
+});
 
-}); 
+userSchema.statics.list = function(cb){
+	var query = User.find({});
+	//ejecutarlo
+	query.short('name');
+
+	query.exec(function(err, rows){
+		if(err){
+			cb(err);
+			return;
+		}
+		cb(null, rows);
+		return;
+	});
+};
+
 
 //lo registro en mongoose
-mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema);
 
 //metodos del modelo
 var User1 = { //creo un objeto de forma literal
@@ -42,19 +44,20 @@ var User1 = { //creo un objeto de forma literal
 			cb(null, users);
 			return;
 	*/
-
+	
 //  con Mongoose ////////////////////////////
 	var userModelo = mongoose.model('User');
-	userModelo.find({}, function(err,datos){
+	userModelo.find({}, function(err,rows){
 		if(err){
 			cb(err);
 			return;
 		} 
-		cb(null, datos);
+		cb(null, rows);
 		return;
 	});
 
 	////////////////////////////////////////
+
 	}//);}
 };
 

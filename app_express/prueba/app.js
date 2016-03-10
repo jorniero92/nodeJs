@@ -10,6 +10,7 @@ var users = require('./routes/users');
 //de router añadimos admin
 var admin = require('./routes/admin');
 
+var db = require('./lib/connectMongo.js')
 var app = express();
 
 app.use(function(req, res, next){

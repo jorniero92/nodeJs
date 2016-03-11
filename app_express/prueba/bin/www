@@ -1,4 +1,5 @@
-#!/usr/bin/env node
+"use strict";
+
 
 /*
  * Module dependencies.
@@ -16,23 +17,31 @@ var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/*
- * Create HTTP server.
- */
+//cargamos cluster
+let cluster = require('cluster');
 
-var server = http.createServer(app); //le paso el conjunto de midelware
+if(cluster.isMaster){
+  //ver cuantas cpu's tengo
+  let numCPUs = require('os').cpus().length;
+  for(let i = 0; i < numCPUs; i++){
+    //arranco 1 copia de cada worker
+    cluster.fork();
+  }
+}else{
+  //codigo de lo q hace cada fork
+  /* Create HTTP server. */
+  var server = http.createServer(app); //le paso el conjunto de midelware
 
-/*
- * Listen on provided port, on all network interfaces.
- */
+  /* Listen on provided port, on all network interfaces. */
+  server.listen(port);
+  server.on('error', onError); //me suscribo a un evento
+  server.on('listening', onListening); //si emito el evento de listening
+}
 
-server.listen(port);
-server.on('error', onError); //me suscribo a un evento
-server.on('listening', onListening); //si emito el evento de listening
 
-/*
- * Normalize a port into a number, string, or false.
- */
+
+
+/* Normalize a port into a number, string, or false. */
 
 function normalizePort(val) {
   var port = parseInt(val, 10);

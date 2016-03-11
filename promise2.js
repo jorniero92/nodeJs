@@ -24,12 +24,18 @@ function con(plato){
 	})
 }
 
-var paella = 'paella con';
+var paella = '1Paella con';
 
 conArroz(paella) //cuando se devuelva conArroz saca un string
 //conArroz('') //cuando se devuelva conArroz saca un string
-	.then(conAjo)
-	.then(conSal) // esuna funcion que resuelve
+	.then(conAjo)// es una funcion que resuelve
+	.then(conSal)
+	// hacemos algo distinto dentro
+	.then(function(plato){
+		console.log(plato);
+		return con(plato, ' pimiento');
+	}) 
+	
 	.then(function(plato){ //este devuelve una promesa
 		console.log('El plato tiene: ', plato);
 	})

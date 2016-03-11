@@ -3,10 +3,19 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var basicAuth = require('basic-auth');
+var auth = require('../../../lib/auth');
+/*
+--> Autentificion global
+router.use(auth('admin', 'pass'));
 
-router.get('/', function(req, res) {
+--> la autentificacion asi solo se hara en el get
+router.get('/', auth('admin', 'pass'), function(req, res) {
+*/
+router.get('/', auth('admin', 'pass'), function(req, res) {
+	var sort = req.query.sort || 'name';
 	
-	User.list(function(err, rows){
+	User.list(sort, function(err, rows){
 
 		if(err){
 			res.json({ //le damos nuestro error q hacemos
@@ -19,6 +28,7 @@ router.get('/', function(req, res) {
 		//cuando esten disponibles los mando en JSON
 		//devuelve el error y lo q me han pedido
 		res.json({result: true, rows: rows}); 
+		return;
 	});
  
 });

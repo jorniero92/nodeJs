@@ -14,7 +14,7 @@ userSchema.statics.list = function(sort, cb){
 	var query = User.find({});
 	//ejecutarlo
 	query.sort(sort);
-
+	query.select('name age');
 	query.exec(function(err, rows){
 		if(err){
 			cb(err);

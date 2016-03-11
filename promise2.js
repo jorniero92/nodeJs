@@ -14,7 +14,7 @@ function conSal(plato){
 
 function conAjo(plato){
 	return new Promise(function(resolve, reject){
-		reject('No lleva Ajo la paella');
+		resolve(plato + ' Ajo');
 	})
 }
 
@@ -30,8 +30,11 @@ conArroz(paella) //cuando se devuelva conArroz saca un string
 //conArroz('') //cuando se devuelva conArroz saca un string
 	.then(conAjo)
 	.then(conSal) // esuna funcion que resuelve
-	.then(function(plato){
+	.then(function(plato){ //este devuelve una promesa
 		console.log('El plato tiene: ', plato);
+	})
+	.then(function(algo){ //pueden devolver cosas que no son promesas
+		console.log('algo ', algo);
 	})
 	.catch(function(err){
 		console.log('Error', err);

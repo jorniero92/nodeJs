@@ -1,6 +1,6 @@
 "use strict";
 /*
-* como voy a devolver una promesa no hace falta callback
+como voy a devolver una promesa no hace falta callback
 var sleep = function(ms,callback){}
 */
 var sleep = function(ms){
